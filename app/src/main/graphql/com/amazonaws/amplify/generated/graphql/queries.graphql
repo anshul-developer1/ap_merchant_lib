@@ -1,0 +1,24 @@
+# this is an auto generated file. This will be overwritten
+query GetAeroSyncStage($id: ID!) {
+  getAeroSyncStage(id: $id) {
+    id
+    payload
+    consumer_id
+    merchant_id
+  }
+}
+query ListAeroSyncStages(
+  $filter: TableAeroSyncStageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAeroSyncStages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      payload
+      consumer_id
+      merchant_id
+    }
+    nextToken
+  }
+}

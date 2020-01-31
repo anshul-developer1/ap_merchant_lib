@@ -51,7 +51,7 @@
                     android:src="@drawable/back_arrow">
                 </ImageView>
 
-                <com.aeropaymerchantsdk.view.CustomTextView
+                <com.aeropay_merchant.view.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -63,7 +63,7 @@
 
                 </RelativeLayout>
 
-                <com.aeropaymerchantsdk.view.CustomTextView
+                <com.aeropay_merchant.view.CustomTextView
                     android:id="@+id/merchantNameText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
                     android:textColor="#2c2c2c"
                     android:textSize="@dimen/_15ssp" />
 
-                <com.aeropaymerchantsdk.view.CustomTextView
+                <com.aeropay_merchant.view.CustomTextView
                     android:id="@+id/merchantEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                     android:textColor="#adadad"
                     android:textSize="@dimen/_13ssp" />
 
-                <com.aeropaymerchantsdk.view.CustomTextView
+                <com.aeropay_merchant.view.CustomTextView
                     android:id="@+id/storeNameText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

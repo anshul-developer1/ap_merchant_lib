@@ -11,7 +11,8 @@
     android:layout_width="@dimen/_100sdp"
     android:layout_height="@dimen/_120sdp"
     app:cardCornerRadius="@dimen/_5sdp"
-    app:cardElevation="@dimen/_10sdp"
+    android:id="@+id/userCardLayout"
+    app:cardElevation="@dimen/_8sdp"
     android:layout_margin="@dimen/_5sdp">
 
         <RelativeLayout
@@ -27,7 +28,7 @@
             android:src="@drawable/userimage"
             android:id="@+id/userImage"></ImageView>
 
-        <com.aeropaymerchantsdk.view.CustomTextView
+        <com.aeropay_merchant.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_14ssp"
@@ -41,7 +42,7 @@
             android:text="Tanner"
             />
 
-        <com.aeropaymerchantsdk.view.CustomTextView
+        <com.aeropay_merchant.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_12ssp"

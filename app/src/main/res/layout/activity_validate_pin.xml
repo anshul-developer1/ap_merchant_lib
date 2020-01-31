@@ -30,7 +30,7 @@
             android:src="@drawable/back_arrow">
         </ImageView>
 
-        <com.aeropaymerchantsdk.view.CustomTextView
+        <com.aeropay_merchant.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -68,7 +68,7 @@
                     android:id="@+id/completedImage"
                     ></ImageView>
 
-                <com.aeropaymerchantsdk.view.CustomTextView
+                <com.aeropay_merchant.view.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_20ssp"
@@ -79,7 +79,7 @@
                     android:gravity="center"
                     android:textColor="@color/textview_color"
                     android:text="Pin-login enabled!"
-                    ></com.aeropaymerchantsdk.view.CustomTextView>
+                    ></com.aeropay_merchant.view.CustomTextView>
 
             </RelativeLayout>
         </RelativeLayout>
@@ -270,7 +270,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <com.aeropaymerchantsdk.view.CustomTextView
+                            <com.aeropay_merchant.view.CustomTextView
                                 android:id="@+id/button1"
                                 android:layout_width="wrap_content"
                                 app:ctypeface="@string/adineue_pro_bold"
@@ -281,8 +281,8 @@
                                 android:textColor="@color/textview_color"
                                 android:background="@drawable/rectangle"
                                 >
-                            </com.aeropaymerchantsdk.view.CustomTextView>
-                            <com.aeropaymerchantsdk.view.CustomTextView
+                            </com.aeropay_merchant.view.CustomTextView>
+                            <com.aeropay_merchant.view.CustomTextView
                                 android:id="@+id/button2"
                                 android:layout_width="wrap_content"
                                 app:ctypeface="@string/adineue_pro_bold"
@@ -293,8 +293,8 @@
                                 android:textColor="@color/textview_color"
                                 android:background="@drawable/rectangle"
                                 >
-                            </com.aeropaymerchantsdk.view.CustomTextView>
-                            <com.aeropaymerchantsdk.view.CustomTextView
+                            </com.aeropay_merchant.view.CustomTextView>
+                            <com.aeropay_merchant.view.CustomTextView
                                 android:id="@+id/button3"
                                 android:layout_width="wrap_content"
                                 app:ctypeface="@string/adineue_pro_bold"
@@ -305,7 +305,7 @@
                                 android:textSize="@dimen/_22ssp"
                                 android:background="@drawable/rectangle"
                                 >
-                            </com.aeropaymerchantsdk.view.CustomTextView>
+                            </com.aeropay_merchant.view.CustomTextView>
                         </TableRow>
                         <TableRow
                             android:id="@+id/tableRow2"
@@ -313,7 +313,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             >
-                            <com.aeropaymerchantsdk.view.CustomTextView
+                            <com.aeropay_merchant.view.CustomTextView
                                 android:id="@+id/button4"
                                 android:layout_width="wrap_content"
                                 app:ctypeface="@string/adineue_pro_bold"
@@ -324,8 +324,8 @@
                                 android:textColor="@color/textview_color"
                                 android:background="@drawable/rectangle"
                                 >
-                            </com.aeropaymerchantsdk.view.CustomTextView>
-                            <com.aeropaymerchantsdk.view.CustomTextView
+                            </com.aeropay_merchant.view.CustomTextView>
+                            <com.aeropay_merchant.view.CustomTextView
                                 android:id="@+id/button5"
                                 android:layout_width="wrap_content"
                                 android:textColor="@color/textview_color"
@@ -336,8 +336,8 @@
                                 android:textSize="@dimen/_22ssp"
                                 android:background="@drawable/rectangle"
                                 >
-                            </com.aeropaymerchantsdk.view.CustomTextView>
-                            <com.aeropaymerchantsdk.view.CustomTextView
+                            </com.aeropay_merchant.view.CustomTextView>
+                            <com.aeropay_merchant.view.CustomTextView
                                 android:id="@+id/button6"
                                 android:layout_width="wrap_content"
                                 app:ctypeface="@string/adineue_pro_bold"
@@ -348,7 +348,7 @@
                                 android:textSize="@dimen/_22ssp"
                                 android:background="@drawable/rectangle"
                                 >
-                            </com.aeropaymerchantsdk.view.CustomTextView>
+                            </com.aeropay_merchant.view.CustomTextView>
                         </TableRow>
                         <TableRow
                             android:id="@+id/tableRow3"
@@ -356,7 +356,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             >
-                            <com.aeropaymerchantsdk.view.CustomTextView
+                            <com.aeropay_merchant.view.CustomTextView
                                 android:id="@+id/button7"
                                 android:layout_width="wrap_content"
                                 android:layout_height="@dimen/_50sdp"
@@ -367,8 +367,8 @@
                                 android:textColor="@color/textview_color"
                                 android:background="@drawable/rectangle"
                                 >
-                            </com.aeropaymerchantsdk.view.CustomTextView>
-                            <com.aeropaymerchantsdk.view.CustomTextView
+                            </com.aeropay_merchant.view.CustomTextView>
+                            <com.aeropay_merchant.view.CustomTextView
                                 android:id="@+id/button8"
                                 android:layout_width="wrap_content"
                                 android:layout_height="@dimen/_50sdp"
@@ -379,8 +379,8 @@
                                 android:textColor="@color/textview_color"
                                 android:background="@drawable/rectangle"
                                 >
-                            </com.aeropaymerchantsdk.view.CustomTextView>
-                            <com.aeropaymerchantsdk.view.CustomTextView
+                            </com.aeropay_merchant.view.CustomTextView>
+                            <com.aeropay_merchant.view.CustomTextView
                                 android:id="@+id/button9"
                                 android:layout_width="wrap_content"
                                 android:layout_height="@dimen/_50sdp"
@@ -391,7 +391,7 @@
                                 android:textColor="@color/textview_color"
                                 android:background="@drawable/rectangle"
                                 >
-                            </com.aeropaymerchantsdk.view.CustomTextView>
+                            </com.aeropay_merchant.view.CustomTextView>
                         </TableRow>
                         <TableRow
                             android:id="@+id/tableRow4"
@@ -399,7 +399,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             >
-                            <com.aeropaymerchantsdk.view.CustomTextView
+                            <com.aeropay_merchant.view.CustomTextView
                                 android:id="@+id/buttonExit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="@dimen/_50sdp"
@@ -410,9 +410,9 @@
                                 android:textColor="@color/textview_color"
                                 android:background="@drawable/rectangle"
                                 >
-                            </com.aeropaymerchantsdk.view.CustomTextView>
+                            </com.aeropay_merchant.view.CustomTextView>
 
-                            <com.aeropaymerchantsdk.view.CustomTextView
+                            <com.aeropay_merchant.view.CustomTextView
                                 android:id="@+id/button0"
                                 android:layout_width="wrap_content"
                                 app:ctypeface="@string/adineue_pro_bold"
@@ -423,8 +423,8 @@
                                 android:textColor="@color/textview_color"
                                 android:background="@drawable/rectangle"
                                 >
-                            </com.aeropaymerchantsdk.view.CustomTextView>
-                            <com.aeropaymerchantsdk.view.CustomTextView
+                            </com.aeropay_merchant.view.CustomTextView>
+                            <com.aeropay_merchant.view.CustomTextView
                                 android:id="@+id/buttonDeleteBack"
                                 android:layout_width="wrap_content"
                                 android:layout_height="@dimen/_50sdp"
@@ -435,7 +435,7 @@
                                 android:textColor="@color/textview_color"
                                 android:background="@drawable/rectangle"
                                 >
-                            </com.aeropaymerchantsdk.view.CustomTextView>
+                            </com.aeropay_merchant.view.CustomTextView>
                         </TableRow>
                     </TableLayout>
                 </RelativeLayout>

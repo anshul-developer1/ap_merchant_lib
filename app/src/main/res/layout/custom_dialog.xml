@@ -24,10 +24,10 @@
             android:src="@drawable/timer"
             android:layout_centerHorizontal="true"/>
 
-        <com.aeropaymerchantsdk.view.CustomTextView
+        <com.aeropay_merchant.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_16ssp"
+            android:textSize="@dimen/_15ssp"
             android:textColor="#000000"
             app:ctypeface="@string/adineue_pro_regular"
             android:layout_marginRight="@dimen/_25sdp"
@@ -40,10 +40,10 @@
             android:text="Enable auto-login"
             />
 
-        <com.aeropaymerchantsdk.view.CustomTextView
+        <com.aeropay_merchant.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_13ssp"
             android:textColor="#000000"
             android:letterSpacing="0.03"
             android:lineSpacingExtra="8.2sp"
@@ -70,10 +70,10 @@
             android:layout_centerHorizontal="true"
             />
 
-        <com.aeropaymerchantsdk.view.CustomTextView
+        <com.aeropay_merchant.view.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_10ssp"
             android:textColor="#1bcfc3"
             app:ctypeface="@string/adineue_pro_black"
             android:letterSpacing="0.11"

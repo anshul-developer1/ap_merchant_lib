@@ -20,7 +20,7 @@
         android:layout_centerVertical="true">
     </ImageView>
 
-    <com.aeropaymerchantsdk.view.CustomTextView
+    <com.aeropay_merchant.view.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/_14ssp"

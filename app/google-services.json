@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "812992319148",
+    "firebase_url": "https://aeropay-198020.firebaseio.com",
+    "project_id": "aeropay-198020",
+    "storage_bucket": "aeropay-198020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812992319148:android:e1c22134e3760940",
+        "android_client_info": {
+          "package_name": "com.aeropay_merchant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812992319148-t1hiaodmd1rs3k7a49f4a2gh0lcq4os1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy5X8s5FMClItX4FzhuzfeZX7LkRgpH3U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812992319148:android:65840eb18b72b4ca",
+        "android_client_info": {
+          "package_name": "com.aeropayments.aeropay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812992319148-t1hiaodmd1rs3k7a49f4a2gh0lcq4os1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy5X8s5FMClItX4FzhuzfeZX7LkRgpH3U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
