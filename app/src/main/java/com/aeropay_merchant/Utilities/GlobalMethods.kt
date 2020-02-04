@@ -1,6 +1,7 @@
 package com.aeropay_merchant.Utilities
 
 import android.app.Dialog
+import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -8,10 +9,13 @@ import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.View
 import android.view.Window
+import android.widget.Button
 import android.widget.ImageView
+import androidx.core.app.ActivityCompat.startActivityForResult
 import com.aeropay_merchant.BuildConfig
 import com.aeropay_merchant.R
 import com.aeropay_merchant.activity.*
+import com.aeropay_merchant.view.CustomTextView
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoDevice
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession

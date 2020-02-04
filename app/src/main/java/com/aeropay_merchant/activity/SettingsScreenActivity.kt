@@ -132,8 +132,8 @@ class SettingsScreenActivity : BaseActivity() {
         else{
             PrefKeeper.storeName = storeLocation
             PrefKeeper.deviceName = deviceName
+            PrefKeeper.minorId = -1
             launchActivity(HomeActivity::class.java)
-            finishAffinity()
         }
     }
 

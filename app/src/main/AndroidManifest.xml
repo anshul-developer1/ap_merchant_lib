@@ -38,7 +38,8 @@
 
         <activity
             android:name=".activity.HomeActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".activity.FastLoginActivity" />
 
         <activity

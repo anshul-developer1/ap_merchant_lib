@@ -12,9 +12,21 @@ object PrefKeeper {
         get() = prefs!!.getInt(ConstantsStrings().loginCount, 0)
         set(loginCount) = prefs!!.edit().putInt(ConstantsStrings().loginCount, loginCount).apply()
 
+    var minorId: Int
+        get() = prefs!!.getInt(ConstantsStrings().minorId, -1)
+        set(minorId) = prefs!!.edit().putInt(ConstantsStrings().minorId, minorId).apply()
+
+    var majorId: Int
+        get() = prefs!!.getInt(ConstantsStrings().majorId, -1)
+        set(majorId) = prefs!!.edit().putInt(ConstantsStrings().majorId, majorId).apply()
+
+    var deviceUuid: String?
+        get() = prefs!!.getString(ConstantsStrings().deviceUUID, ConstantsStrings().noValue)
+        set(deviceUuid) = prefs!!.edit().putString(ConstantsStrings().deviceUUID, deviceUuid).apply()
+
     var merchantId: Int
         get() = prefs!!.getInt(ConstantsStrings().merchantId, 0)
-        set(loginCount) = prefs!!.edit().putInt(ConstantsStrings().merchantId, loginCount).apply()
+        set(merchantId) = prefs!!.edit().putInt(ConstantsStrings().merchantId, merchantId).apply()
 
     var pinValue: String?
         get() = prefs!!.getString(ConstantsStrings().pinValue,ConstantsStrings().noValue)
@@ -22,7 +34,7 @@ object PrefKeeper {
 
     var deviceToken: String?
         get() = prefs!!.getString(ConstantsStrings().deviceToken,ConstantsStrings().noValue)
-        set(setToken) = prefs!!.edit().putString(ConstantsStrings().deviceToken, setToken).apply()
+        set(deviceToken) = prefs!!.edit().putString(ConstantsStrings().deviceToken, deviceToken).apply()
 
     var isPinEnabled: Boolean
         get() = prefs!!.getBoolean(ConstantsStrings().pinEnabled, false)

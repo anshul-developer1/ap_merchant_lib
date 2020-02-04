@@ -67,9 +67,7 @@ open class BaseActivity : AppCompatActivity() , ICommunicationHandler{
             (this as HomeActivity).sendProcessTransaction()
         }
         else if(outputParms.equals(DefineID().REGISTER_MERCHANT_LOCATION_DEVICE)){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                (this as HomeActivity).creatBeaconTransmission()
-            }
+            (this as HomeActivity).creatBeaconTransmission()
         }
     }
 

@@ -26,15 +26,18 @@ import android.R
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseSettings
 import android.bluetooth.le.BluetoothLeAdvertiser
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
@@ -42,15 +45,19 @@ import android.os.Handler
 import android.text.Editable
 import android.text.InputType
 import android.util.Log
+import android.view.Window
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import com.aeropay_merchant.Utilities.*
+import com.aeropay_merchant.ViewModel.HomeViewModel
 import com.aeropay_merchant.adapter.HomeCardRecyclerView
 import com.aeropay_merchant.view.CustomTextView
 import com.amazonaws.amplify.generated.graphql.OnCreateMerchantConsumerSyncStageSubscription
 import com.amazonaws.amplify.generated.graphql.OnCreateMerchantSyncStageSubscription
 import com.amazonaws.mobileconnectors.appsync.AppSyncSubscriptionCall
+import com.androidadvance.topsnackbar.TSnackbar
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.earthling.atminput.ATMEditText
@@ -72,20 +79,21 @@ class HomeActivity : BaseActivity(){
     lateinit var cardViewRecycler : RecyclerView
     lateinit var readyToPay : TextView
     lateinit var aeropayTransparent : ImageView
+    lateinit var headerLayout : RelativeLayout
     lateinit var beaconTransmitter: BeaconTransmitter
     lateinit var cardAdapter: HomeCardRecyclerView
     lateinit var bottomFragment: BottomSheetDialog
-    var userEntered: String? = ""
+    var bleAdapter: BluetoothAdapter? = null
 
     var isBleSupported = false
     lateinit var subscriptionChannelWatcher: AppSyncSubscriptionCall<OnCreateMerchantConsumerSyncStageSubscription.Data>
     lateinit var subscriptionWatcher: AppSyncSubscriptionCall<OnCreateMerchantSyncStageSubscription.Data>
     val TAG = SignInScreenActivity::class.java!!.getSimpleName()
-    val userName: ArrayList<String> = ArrayList()
-    var numberOfConsumers : Int? = 0
+    lateinit var homeViewModel : HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        homeViewModel = HomeViewModel()
         setContentView(com.aeropay_merchant.R.layout.activity_home)
         initialiseControls()
 
@@ -93,9 +101,6 @@ class HomeActivity : BaseActivity(){
         GlobalMethods().getDeviceToken(applicationContext)
         setupView()
         setListeners()
-
-
-
         maintainUserLoginCount()
 
         var loginCount = PrefKeeper.logInCount
@@ -123,13 +128,54 @@ class HomeActivity : BaseActivity(){
 
     override fun onResume() {
         super.onResume()
-        var result = BeaconTransmitter.checkTransmissionSupported(this)
-        if(result == 0){
-            isBleSupported = true
-            createHitForUUID()
+        bleAdapter = BluetoothAdapter.getDefaultAdapter()
+        if(bleAdapter == null){
+            var snackbar = TSnackbar.make(headerLayout, "Device not supported", TSnackbar.LENGTH_LONG);
+            snackbar.setActionTextColor(Color.BLACK);
+            snackbar.setIconRight(R.drawable.ic_menu_close_clear_cancel, 36F); //Resize to bigger dp
+            snackbar.setIconPadding(8)
+            snackbar.setMaxWidth(3000)
+            var snackbarView = snackbar.getView()
+            snackbarView.setBackgroundColor(Color.parseColor("#34c1d7"))
+            var textView = snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
+            textView.setTextColor(Color.BLACK)
+            textView.textSize = 18F
+            snackbar.show()
+           /* var enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            startActivity(enableBtIntent)*/
         }
         else{
-            showMsgToast("Beacon is not supported in your device.")
+            var result = BeaconTransmitter.checkTransmissionSupported(this)
+            if(result == 0){
+                var isBleEnabled = bleAdapter?.isEnabled
+                if(isBleEnabled!!){
+                    isBleSupported = true
+                    if(PrefKeeper.minorId == -1){
+                        createHitForUUID()
+                    }
+                    else{
+                        startSharedAdvertisingBeaconWithString(PrefKeeper.deviceUuid!!,PrefKeeper.majorId,PrefKeeper.minorId, "AP Stores")
+                    }
+                }
+            }
+            else if(result == 5){
+                cardViewRecycler.visibility = View.GONE
+                aeropayTransparent.visibility = View.VISIBLE
+                var snackbar = TSnackbar.make(headerLayout, "Bluetooth off. Cannot detect Consumers. Please enable your Bluetooth.", TSnackbar.LENGTH_LONG);
+                snackbar.setActionTextColor(Color.BLACK);
+                snackbar.setIconRight(R.drawable.ic_menu_close_clear_cancel, 36F); //Resize to bigger dp
+                snackbar.setIconPadding(8)
+                snackbar.setMaxWidth(3000)
+                var snackbarView = snackbar.getView()
+                snackbarView.setBackgroundColor(Color.parseColor("#34c1d7"))
+                var textView = snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
+                textView.setTextColor(Color.BLACK)
+                textView.textSize = 18F
+                snackbar.show()
+            }
+            else{
+                showMsgToast("BLE is not supported in your device.")
+            }
         }
     }
 
@@ -143,6 +189,17 @@ class HomeActivity : BaseActivity(){
 
         var awsConnectionManager = AWSConnectionManager(this)
         awsConnectionManager.hitServer(DefineID().REGISTER_MERCHANT_LOCATION_DEVICE,this,registerMerchant)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        var consumerResponseArray = homeViewModel.getValues()
+        cardAdapter = HomeCardRecyclerView(consumerResponseArray,this@HomeActivity)
+        cardViewRecycler.adapter = cardAdapter
+
+        cardAdapter.onItemClick = { pos, view ->
+            onItemClick(pos,view)
+        }
     }
 
     //setting up hardcoded Recycler Adapter
@@ -161,8 +218,9 @@ class HomeActivity : BaseActivity(){
         cardViewRecycler = findViewById(com.aeropay_merchant.R.id.cardRecyclerView)
         readyToPay = findViewById(com.aeropay_merchant.R.id.readyToPayText)
         aeropayTransparent = findViewById(com.aeropay_merchant.R.id.aeropayTranparentLogo)
+        headerLayout = findViewById(com.aeropay_merchant.R.id.bodyLayout)
 
-        var text = "<font color=#06dab3>"+ numberOfConsumers.toString() +"</font> <font color=#232323>ready to pay</font>"
+        var text = "<font color=#06dab3>"+ homeViewModel.numberOfConsumers.toString() +"</font> <font color=#232323>ready to pay</font>"
         readyToPay.setText(Html.fromHtml(text))
 
         cardViewRecycler.visibility = View.GONE
@@ -175,13 +233,16 @@ class HomeActivity : BaseActivity(){
         PrefKeeper.logInCount = finalCount
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun creatBeaconTransmission(){
         var registerMerchantDevice = AeropayModelManager().getInstance().registerMerchantDevices
+
+        PrefKeeper.deviceUuid = registerMerchantDevice.uuid as String
+        PrefKeeper.majorId = registerMerchantDevice.majorID.toInt()
+        PrefKeeper.minorId = registerMerchantDevice.minorID.toInt()
+
         startSharedAdvertisingBeaconWithString(registerMerchantDevice.uuid as String, registerMerchantDevice.majorID.toInt() , registerMerchantDevice.minorID.toInt(), "AP Stores")
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     fun startSharedAdvertisingBeaconWithString(uuid: String, major: Int, minor: Int, identifier: String) {
         val manufacturer = 0x4C
         val beacon = Beacon.Builder()
@@ -192,21 +253,23 @@ class HomeActivity : BaseActivity(){
             .setBluetoothName(identifier)
             .setTxPower(-59)
             .build()
-        val beaconParser = BeaconParser()
-            .setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24")
+        val beaconParser = BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24")
         beaconTransmitter = BeaconTransmitter(this, beaconParser)
-        beaconTransmitter!!.startAdvertising(beacon, object : AdvertiseCallback() {
 
-            override fun onStartFailure(errorCode: Int) {
-                showMsgToast("onStartFailure")
-                Log.d("ReactNative", "Error from start advertising $errorCode")
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            beaconTransmitter!!.startAdvertising(beacon, object : AdvertiseCallback() {
 
-            override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
-                showMsgToast("onStartSuccess")
-                Log.d("ReactNative", "Success start advertising")
-            }
-        })
+                override fun onStartFailure(errorCode: Int) {
+                    showMsgToast("onStartFailure")
+                    Log.d("ReactNative", "Error from start advertising $errorCode")
+                }
+
+                override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
+                    showMsgToast("onStartSuccess")
+                    Log.d("ReactNative", "Success start advertising")
+                }
+            })
+        }
         startSubscription()
     }
 
@@ -226,23 +289,25 @@ class HomeActivity : BaseActivity(){
         val subscriptionCallback = object : AppSyncSubscriptionCall.Callback<OnCreateMerchantSyncStageSubscription.Data> {
             override fun onResponse(response: Response<OnCreateMerchantSyncStageSubscription.Data>) {
                 runOnUiThread {
-
                     cardViewRecycler.visibility = View.VISIBLE
                     aeropayTransparent.visibility = View.GONE
 
                     cardViewRecycler.layoutManager = LinearLayoutManager(this@HomeActivity,LinearLayoutManager.HORIZONTAL, false)
-                    userName.add(response.data()!!.onCreateMerchantSyncStage()!!.__typename())
 
-                    cardAdapter = HomeCardRecyclerView(userName,this@HomeActivity)
+                    homeViewModel.setValues(response)
+
+                    var consumerResponseArray = homeViewModel.getValues()
+
+                    cardAdapter = HomeCardRecyclerView(consumerResponseArray,this@HomeActivity)
                     cardViewRecycler.adapter = cardAdapter
 
                     cardAdapter.onItemClick = { pos, view ->
                         onItemClick(pos,view)
                     }
 
-                    numberOfConsumers = numberOfConsumers!! + 1
+                    homeViewModel.numberOfConsumers = homeViewModel.numberOfConsumers!! + 1
 
-                    var text = "<font color=#06dab3>"+ numberOfConsumers.toString() +"</font> <font color=#232323>ready to pay</font>"
+                    var text = "<font color=#06dab3>"+ homeViewModel.numberOfConsumers.toString() +"</font> <font color=#232323>ready to pay</font>"
                     readyToPay.setText(Html.fromHtml(text))
                 }
             }
@@ -262,15 +327,15 @@ class HomeActivity : BaseActivity(){
     }
 
      fun onItemClick(position : Int,view: View) {
-         userEntered = ""
-         val view = (this as FragmentActivity).layoutInflater.inflate(com.aeropay_merchant.R.layout.authorize_payment, null)
+         homeViewModel.userEntered = ""
+         var view = (this as FragmentActivity).layoutInflater.inflate(com.aeropay_merchant.R.layout.authorize_payment_landscape, null)
          bottomFragment = BottomSheetDialog(this)
-         setValuesInDialog(position,view)
+         setValuesInDialog(view)
          bottomFragment.setContentView(view)
          bottomFragment.show()
     }
 
-    private fun setValuesInDialog(position : Int, view : View) {
+    private fun setValuesInDialog(view : View) {
         var etInput = view.findViewById(com.aeropay_merchant.R.id.amountEdit) as ATMEditText
 
         etInput.Currency   = Currency.USA
@@ -278,8 +343,8 @@ class HomeActivity : BaseActivity(){
 
         val pinButtonHandler = View.OnClickListener { v ->
             val pressedButton = v as CustomTextView
-            userEntered = userEntered + pressedButton.text
-            etInput.setText(userEntered)
+            homeViewModel.userEntered = homeViewModel.userEntered + pressedButton.text
+            etInput.setText(homeViewModel.userEntered)
             etInput.setTextColor(Color.BLACK)
             etInput.setTypeface(Typeface.DEFAULT_BOLD)
         }
@@ -321,16 +386,16 @@ class HomeActivity : BaseActivity(){
 
         var buttonDelete = view.findViewById<View>(com.aeropay_merchant.R.id.buttonDeleteBack) as CustomTextView
         buttonDelete!!.setOnClickListener(View.OnClickListener {
-            var userEnteredLength = userEntered!!.length
+            var userEnteredLength = homeViewModel.userEntered!!.length
             if(userEnteredLength == 1){
-                userEntered = userEntered!!.substring(0, userEntered!!.length - 1)
+                homeViewModel.userEntered = homeViewModel.userEntered!!.substring(0, homeViewModel.userEntered!!.length - 1)
                 etInput.setText("0")
                 etInput.setTypeface(Typeface.DEFAULT_BOLD)
                 etInput.setTextColor(Color.LTGRAY)
             }
             else if (userEnteredLength > 1){
-                userEntered = userEntered!!.substring(0, userEntered!!.length - 1)
-                etInput.setText(userEntered)
+                homeViewModel.userEntered = homeViewModel.userEntered!!.substring(0, homeViewModel.userEntered!!.length - 1)
+                etInput.setText(homeViewModel.userEntered)
             }
         }
         )
@@ -341,7 +406,7 @@ class HomeActivity : BaseActivity(){
             processTransaction.type = "debit"
             processTransaction.fromMerchant = "1".toBigDecimal()
             processTransaction.merchantLocationId = PrefKeeper.merchantLocationId!!.toBigDecimal()
-            processTransaction.amount = userEntered!!.toBigDecimal()
+            processTransaction.amount = homeViewModel.userEntered!!.toBigDecimal()
             processTransaction.transactionDescription = "Aeropay Transaction"
 
             processTransaction.transactionId = "123456"
