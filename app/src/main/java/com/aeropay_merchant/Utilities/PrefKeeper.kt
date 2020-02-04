@@ -12,6 +12,10 @@ object PrefKeeper {
         get() = prefs!!.getInt(ConstantsStrings().loginCount, 0)
         set(loginCount) = prefs!!.edit().putInt(ConstantsStrings().loginCount, loginCount).apply()
 
+    var merchantId: Int
+        get() = prefs!!.getInt(ConstantsStrings().merchantId, 0)
+        set(loginCount) = prefs!!.edit().putInt(ConstantsStrings().merchantId, loginCount).apply()
+
     var pinValue: String?
         get() = prefs!!.getString(ConstantsStrings().pinValue,ConstantsStrings().noValue)
         set(pinValue) = prefs!!.edit().putString(ConstantsStrings().pinValue, pinValue).apply()

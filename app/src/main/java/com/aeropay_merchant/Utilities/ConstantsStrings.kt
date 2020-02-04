@@ -24,7 +24,7 @@ class ConstantsStrings {
     val deviceToken = "deviceToken"
     val merchantDeviceId = "merchantDeviceId"
     val merchantLocationId = "merchantLocationId"
-    val majorId = "majorId"
+    val merchantId = "merchantId"
     val minorId = "minorId"
     val deviceUUID = "deviceUUID"
 

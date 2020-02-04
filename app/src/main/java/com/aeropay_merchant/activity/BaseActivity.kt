@@ -63,6 +63,9 @@ open class BaseActivity : AppCompatActivity() , ICommunicationHandler{
         else if(outputParms.equals(DefineID().FETCH_MERCHANT_DEVICES)){
             (this as SettingsScreenActivity).createDeviceSpinner()
         }
+        else if(outputParms.equals(DefineID().FETCH_MERCHANT_PROCESS_TRANSACTION)){
+            (this as HomeActivity).sendProcessTransaction()
+        }
         else if(outputParms.equals(DefineID().REGISTER_MERCHANT_LOCATION_DEVICE)){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 (this as HomeActivity).creatBeaconTransmission()
@@ -82,6 +85,9 @@ open class BaseActivity : AppCompatActivity() , ICommunicationHandler{
             showMsgToast("API Failure")
         }
         else if(outputParms.equals(DefineID().REGISTER_MERCHANT_LOCATION_DEVICE)){
+            showMsgToast("API Failure")
+        }
+        else if(outputParms.equals(DefineID().FETCH_MERCHANT_PROCESS_TRANSACTION)){
             showMsgToast("API Failure")
         }
     }

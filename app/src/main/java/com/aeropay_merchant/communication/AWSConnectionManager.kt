@@ -66,6 +66,10 @@ class AWSConnectionManager  {
                     var registerDevice = requestObject as RegisterMerchantDevice
                     output = client.registerMerchantLocationDevicePost(registerDevice)
                 }
+                else if(requestID.equals(DefineID().FETCH_MERCHANT_PROCESS_TRANSACTION)){
+                    var processTransaction = requestObject as ProcessTransaction
+                    output = client.merchantProcessTransactionPost(processTransaction)
+                }
 
                 return output as Any
             }
@@ -120,6 +124,18 @@ class AWSConnectionManager  {
                         var stringOutput = Gson().toJson(output)
                         objModelManager.registerMerchantDevices = Gson().fromJson(stringOutput,
                             com.aeropay_merchant.Model.RegisterMerchantDeviceResponse::class.java)
+                        callbackHandler.onSuccess(requestID)
+                    }
+                    else{
+                        callbackHandler.onFailure(requestID)
+                    }
+                }
+                else if(requestID.equals(DefineID().FETCH_MERCHANT_PROCESS_TRANSACTION)){
+                    var output = result as StandardResponse
+                    var statusCode = output.success.toString()
+                    if(statusCode.equals("1")){
+                        var stringOutput = Gson().toJson(output)
+                       // objModelManager.registerMerchantDevices = Gson().fromJson(stringOutput, com.aeropay_merchant.Model.RegisterMerchantDeviceResponse::class.java)
                         callbackHandler.onSuccess(requestID)
                     }
                     else{

@@ -15,7 +15,7 @@ public class Merchant {
     @SerializedName("isAuthorized")
     private Object mIsAuthorized;
     @SerializedName("merchantId")
-    private Object mMerchantId;
+    private int mMerchantId;
     @SerializedName("name")
     private Object mName;
 
@@ -43,11 +43,11 @@ public class Merchant {
         mIsAuthorized = isAuthorized;
     }
 
-    public Object getMerchantId() {
+    public int getMerchantId() {
         return mMerchantId;
     }
 
-    public void setMerchantId(Object merchantId) {
+    public void setMerchantId(int merchantId) {
         mMerchantId = merchantId;
     }
 

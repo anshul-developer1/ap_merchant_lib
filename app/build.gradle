@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.amplifyframework.amplifytools'
 apply plugin: 'com.amazonaws.appsync'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
@@ -46,6 +45,7 @@ dependencies {
     //UI Dependency
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
+    implementation 'com.github.dinukapj:ATM-EditText:1.7.3'
 
     //Testing Dependencies
     testImplementation 'junit:junit:4.12'
