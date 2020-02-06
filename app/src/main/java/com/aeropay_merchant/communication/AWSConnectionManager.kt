@@ -1,8 +1,8 @@
 package com.aeropay_merchant.communication
 
 import AP.AeroPayStagingClient
-import AP.model.*
 import android.content.Context
+import AP.model.*
 import android.os.AsyncTask
 import com.aeropay_merchant.Model.AeropayModelManager
 import com.aeropay_merchant.Model.FetchMerchantDevicesList
@@ -12,12 +12,12 @@ import com.aeropay_merchant.Utilities.ConstantsStrings
 import com.aeropay_merchant.Utilities.GlobalMethods
 import com.aeropay_merchant.activity.idToken
 import com.amazonaws.auth.CognitoCachingCredentialsProvider
-import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 import com.amazonaws.regions.Regions
 import com.google.gson.Gson
 import android.content.pm.ActivityInfo
 import android.app.Activity
 import android.content.res.Configuration
+import com.amazonaws.mobileconnectors.apigateway.ApiClientFactory
 
 
 class AWSConnectionManager  {
@@ -39,8 +39,7 @@ class AWSConnectionManager  {
 
             override fun doInBackground(vararg p0: Void?): Any? {
 
-                var credentialsProvider = object : CognitoCachingCredentialsProvider(mContext,
-                    ConstantsStrings().aws_identitypool_id, Regions.US_EAST_1){}
+                var credentialsProvider = object : CognitoCachingCredentialsProvider(mContext, ConstantsStrings().aws_identitypool_id, Regions.US_EAST_1){}
 
                 var logins = HashMap<String,String>()
                 logins.put(ConstantsStrings().userPoolLoginType, idToken);
@@ -68,7 +67,7 @@ class AWSConnectionManager  {
                 }
                 else if(requestID.equals(DefineID().FETCH_MERCHANT_PROCESS_TRANSACTION)){
                     var processTransaction = requestObject as ProcessTransaction
-                    output = client.merchantProcessTransactionPost(processTransaction)
+                    output = client.sendBillTransactionPost(processTransaction)
                 }
 
                 return output as Any

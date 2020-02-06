@@ -54,8 +54,8 @@ class SignInCredentialActivity : BaseActivity(){
     fun createUserValidation(view: View) {
          userName = userNameEdit.text.toString()
          password = passwordEdit.text.toString()
-         userName = "daniel.muller@aeropayments.com"
-         password = "Password*12345"
+         /*userName = "daniel.muller@aeropayments.com"
+         password = "Password*12345"*/
 
         if(userName.trim().isNullOrEmpty() || password!!.trim().isNullOrEmpty()){
             Toast.makeText(this,"Please enter Email and password.",Toast.LENGTH_SHORT).show()

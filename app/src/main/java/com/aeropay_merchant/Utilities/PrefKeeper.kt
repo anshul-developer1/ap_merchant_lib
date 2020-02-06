@@ -60,6 +60,10 @@ object PrefKeeper {
         get() = prefs?.getInt(ConstantsStrings().merchantLocationId, 0)
         set(devicePosition) = prefs!!.edit().putInt(ConstantsStrings().merchantLocationId, devicePosition!!).apply()
 
+    var merchantLocationDeviceId : Int?
+        get() = prefs?.getInt(ConstantsStrings().merchantLocationDeviceId, 0)
+        set(devicePosition) = prefs!!.edit().putInt(ConstantsStrings().merchantLocationDeviceId, devicePosition!!).apply()
+
     var username: String?
         get() = prefs?.getString(ConstantsStrings().username, ConstantsStrings().noValue)
         set(username) = prefs!!.edit().putString(ConstantsStrings().username, username).apply()

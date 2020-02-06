@@ -1,10 +1,10 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateAeroSyncStage(
+mutation CreateAeroSync(
   $payload: AWSJSON!
   $consumer_id: String!
   $merchant_id: String!
 ) {
-  createAeroSyncStage(
+  createAeroSync(
     payload: $payload
     consumer_id: $consumer_id
     merchant_id: $merchant_id

@@ -11,6 +11,7 @@ import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.app.ActivityCompat.startActivityForResult
 import com.aeropay_merchant.BuildConfig
 import com.aeropay_merchant.R
@@ -25,6 +26,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.Chal
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.continuations.MultiFactorAuthenticationContinuation
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.AuthenticationHandler
 import com.amazonaws.regions.Regions
+import com.androidadvance.topsnackbar.TSnackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import java.util.regex.Pattern
@@ -193,5 +195,22 @@ class GlobalMethods {
             var a = PrefKeeper.deviceToken
             Log.d("Aeropay token",a )
         }
+    }
+
+    fun createSnackBar(view: View? ,message: String?){
+        var snackbar = TSnackbar.make(view!!, message!!, TSnackbar.LENGTH_LONG);
+        snackbar.setActionTextColor(Color.BLACK)
+        snackbar.setIconRight(android.R.drawable.ic_menu_close_clear_cancel, 36F)
+        snackbar.setIconPadding(8)
+        snackbar.setMaxWidth(3000)
+        var snackbarView = snackbar.getView()
+        snackbarView.setBackgroundColor(Color.parseColor("#34c1d7"))
+        var textView = snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
+        textView.setTextColor(Color.BLACK)
+        textView.textSize = 18F
+        snackbar.show()
+
+        /*var enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+          startActivity(enableBtIntent)*/
     }
 }

@@ -52,9 +52,7 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@id/userName"
             app:ctypeface="@string/adineue_pro_regular"
-            android:id="@+id/time"
-            android:text="00:15s"
-            />
+            android:id="@+id/time" />
 
         </RelativeLayout>
 

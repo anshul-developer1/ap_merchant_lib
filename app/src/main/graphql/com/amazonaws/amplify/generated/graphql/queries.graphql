@@ -1,18 +1,18 @@
 # this is an auto generated file. This will be overwritten
-query GetAeroSyncStage($id: ID!) {
-  getAeroSyncStage(id: $id) {
+query GetAeroSync($id: ID!) {
+  getAeroSync(id: $id) {
     id
     payload
     consumer_id
     merchant_id
   }
 }
-query ListAeroSyncStages(
-  $filter: TableAeroSyncStageFilterInput
+query ListAeroSyncs(
+  $filter: TableAeroSyncFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listAeroSyncStages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listAeroSyncs(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       payload

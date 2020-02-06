@@ -29,15 +29,14 @@
         />
 
     <ImageView
+        android:id="@+id/statusImage"
         android:layout_width="@dimen/_18sdp"
         android:layout_height="@dimen/_18sdp"
-        android:id="@+id/statusImage"
-        android:layout_marginLeft="@dimen/_10sdp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_15sdp"
-        android:src="@drawable/completed"
-        ></ImageView>
+        android:src="@drawable/completed"></ImageView>
 
     <com.aeropay_merchant.view.CustomTextView
         android:layout_width="wrap_content"
@@ -48,7 +47,7 @@
         android:id="@+id/timeLeftText"
         android:layout_toLeftOf="@id/statusImage"
         android:layout_centerVertical="true"
-        android:text="00:15"
+        android:text="00:00"
         />
 
     <com.aeropay_merchant.view.CustomTextView

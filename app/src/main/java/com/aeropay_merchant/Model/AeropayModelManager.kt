@@ -10,6 +10,8 @@ class AeropayModelManager {
     var merchantDevicesModel: FetchMerchantDevicesList = FetchMerchantDevicesList()
     var merchantProfileModel: FetchMerchantProfileModel = FetchMerchantProfileModel()
     var registerMerchantDevices: RegisterMerchantDeviceResponse = RegisterMerchantDeviceResponse()
+    var createSyncPayload: SubscriptionPayload = SubscriptionPayload()
+    var subscriptionPayloadForList: SubscriptionPayloadDataForList = SubscriptionPayloadDataForList()
 
     constructor() {}
 

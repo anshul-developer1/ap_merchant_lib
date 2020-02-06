@@ -80,6 +80,9 @@ class SettingsScreenActivity : BaseActivity() {
                         storeLocation = storeListName[position]
                         var arrayPosition = position - 1
                         (context as SettingsScreenActivity).onStoreSelectedEvent(arrayPosition)
+                        var objModelManager = AeropayModelManager().getInstance()
+                        objModelManager.createSyncPayload.payloadList.clear()
+                        objModelManager.subscriptionPayloadForList.payloadList.clear()
                     }
                 }
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -115,6 +118,7 @@ class SettingsScreenActivity : BaseActivity() {
                         deviceName = storeListName[position]
                         PrefKeeper.merchantDeviceId = modelOutPut.devices[position].merchantLocationDeviceId.intValueExact()
                         PrefKeeper.merchantLocationId = modelOutPut.devices[position].merchantLocationId.intValueExact()
+                        PrefKeeper.merchantLocationDeviceId = modelOutPut.devices[position].merchantLocationDeviceId.intValueExact()
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>) {
